@@ -38,7 +38,8 @@ void multiplyMatrix(struct matrixParams params)
             for (int cols_mat1 = 0; cols_mat1 < params.cols1; cols_mat1++)
             {
 
-                global_sum = global_sum + params.mat1[rows_mat1][cols_mat1] * params.mat2[cols_mat1][cols_mat2];
+                //global_sum = global_sum + params.mat1[rows_mat1][cols_mat1] * params.mat2[cols_mat1][cols_mat2];
+                global_sum = global_sum + *(*(params.mat1 + rows_mat1) + cols_mat2)) * *(*(params.mat2 + cols_mat1) + cols_mat1);
             }
 
             result_matrix[rows_mat1][cols_mat2] = global_sum;
@@ -81,8 +82,8 @@ struct matrixParams RandomDimMatrixFill(int limit)
     params.cols1 = dim_matrix1[1];
     params.rows2 = dim_matrix1[1];
     params.cols2 = dim_matrix2[0];
-    params.mat1 = matrix1;
-    params.mat2 = matrix2;
+    params.mat1 = (*matrix1);
+    params.mat2 = (*matrix2);
     return params;
 }
 
@@ -112,8 +113,7 @@ struct matrixParams fillMatrix(int row1, int col1, int col2, int limit)
     struct matrixParams params = {
         row1, col1,
         col1, col2,
-        matrix1, matrix2
-    };
+        *(matrix1), *(matrix2)};
 }
 int main(int argc, char *argv[])
 {
