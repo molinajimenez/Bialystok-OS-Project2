@@ -1,126 +1,99 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
-#define MAX_VALUE 500
 
-int *getRandomInterval(int lower, int upper, int count)
-{
-    int i;
-    int *arr = malloc(count * sizeof(int));
-    for (i = 0; i < count; i++)
-    {
-        arr[i] = (rand() % (upper - lower + 1)) + lower;
+struct MatrixBase{
+    int row1,col1;
+    int row2,col2;
+    int min,max;
+    float **matrix1;
+    float **matrix2;
+};
+
+float GetRandomFloatNumber(float min, float max)    
+{  
+    return (min + 1) + (((float) rand()) / (float) RAND_MAX) * (max - (min + 1));    
+}
+
+struct MatrixBase GenerateMatrices(char *argv[]){
+    struct MatrixBase matrix;
+
+    matrix.row1 = atoi(argv[2]);
+    matrix.col1 = atoi(argv[3]);
+    matrix.row2 = atoi(argv[3]);
+    matrix.col2 = atoi(argv[4]);
+    matrix.min = atoi(argv[5]);
+    matrix.max = atoi(argv[6]);
+
+    matrix.matrix1 = malloc(matrix.row1*sizeof(int*));
+    for(int i = 0; i < matrix.row1; i++){
+        matrix.matrix1[i] = malloc(matrix.col1*sizeof(int));
     }
 
-    return arr;
-}
-double getRandomdoubleInterval(int limit)
-{
-    return (double)rand() / (double)(RAND_MAX / limit);
+    matrix.matrix2 = malloc(matrix.row2*sizeof(int*));
+    for(int i = 0; i < matrix.row2; i++){
+        matrix.matrix2[i] = malloc(matrix.col2*sizeof(int));
+    }
+
+    return matrix;
 }
 
-/*void multiplyMatrix(void)
-{
-    int result_matrix[params.rows1][params.rows2];
-    //double matrix1 = params.mat1;
-    //double matrix2 = params.mat2;
-    for (int rows_mat1 = 0; rows_mat1 < params.rows1; rows_mat1++)
-    {
-        for (int cols_mat2 = 0; cols_mat2 < params.rows2; cols_mat2++)
-        {
-            int global_sum = 0;
-            for (int cols_mat1 = 0; cols_mat1 < params.cols1; cols_mat1++)
-            {
+struct MatrixBase FillMatrices(struct MatrixBase matrix){
+    for(int i = 0; i < matrix.row1; i++){
+        for(int j = 0; j < matrix.col1; j++){
+            matrix.matrix1[i][j] = GetRandomFloatNumber(matrix.min,matrix.max);
+        }
+    }
 
-                //global_sum = global_sum + params.mat1[rows_mat1][cols_mat1] * params.mat2[cols_mat1][cols_mat2];
-                global_sum = global_sum + *(*(params.mat1 + rows_mat1) + cols_mat2)) * *(*(params.mat2 + cols_mat1) + cols_mat1);
+    for(int i = 0; i < matrix.row2; i++){
+        for(int j = 0; j < matrix.col2; j++){
+            matrix.matrix2[i][j] = GetRandomFloatNumber(matrix.min,matrix.max);
+        }
+    }
+
+    return matrix;
+}
+
+void MultiplyMatrices(struct MatrixBase matrix){
+    float result[matrix.row1][matrix.col2];
+    
+    for(int i = 0; i < matrix.row1; i++){
+        for(int j = 0; j < matrix.col2; j++){
+            for(int k = 0; k < matrix.row2; k++){
+                result[i][j] = result[i][j] + (matrix.matrix1[i][k] * matrix.matrix2[k][j]);
             }
-
-            result_matrix[rows_mat1][cols_mat2] = global_sum;
-        }
-    }
-}*/
-void RandomDimMatrixFill(int limit)
-{
-
-    //we define pointers of integers
-    int *dim_matrix1;
-    int *dim_matrix2;
-    //we receive array of random integers. Index 0 is rows, index 1 is
-    dim_matrix1 = getRandomInterval(20, 500, 2);
-    double matrix1[dim_matrix1[0]][dim_matrix1[1]];
-    dim_matrix2 = getRandomInterval(20, 500, 1);
-    double matrix2[dim_matrix1[1]][dim_matrix2[0]];
-    double result_matrix[dim_matrix1[0]][dim_matrix1[1]];
-    double global_sum = 0;
-    //fill matrix 1
-    for (int rows1 = 0; rows1 < dim_matrix1[0]; rows1++)
-    {
-        for (int cols1 = 0; cols1 < dim_matrix1[1]; cols1++)
-        {
-
-            matrix1[rows1][cols1] = getRandomdoubleInterval(limit);
-            printf("matrix 1, %d\n", matrix1[rows1][cols1]);
         }
     }
 
-    //fill matrix 2
-    for (int rows2 = 0; rows2 < dim_matrix1[1]; rows2++)
-    {
-        for (int cols2 = 0; cols2 < dim_matrix2[0]; cols2++)
-        {
-
-            matrix2[rows2][cols2] = getRandomdoubleInterval(limit);
-            printf("matrix 2, %d\n", matrix2[rows2][cols2]);
+    printf("FIRST MATRIX\n");
+    for(int i = 0; i < matrix.row1; i++){
+        for(int j = 0; j < matrix.col1; j++){
+            printf("%0.6f ",matrix.matrix1[i][j]);
         }
+        printf("\n");
     }
 
-    // multiplication.
-
-    for (int rows_mat1 = 0; rows_mat1 < dim_matrix1[0]; rows_mat1++)
-    {
-        for (int cols_mat2 = 0; cols_mat2 < dim_matrix1[1]; cols_mat2++)
-        {
-            for (int cols_mat1 = 0; cols_mat1 < dim_matrix1[1]; cols_mat1++)
-            {
-
-                global_sum = global_sum + matrix1[rows_mat1][cols_mat1] * matrix2[cols_mat1][cols_mat2];
-                //printf("%d\n",global_sum);
-            }
-
-            result_matrix[rows_mat1][cols_mat2] = global_sum;
-            global_sum = 0;
+    printf("SECOND MATRIX\n");
+    for(int i = 0; i < matrix.row2; i++){
+        for(int j = 0; j < matrix.col2; j++){
+            printf("%0.4f ",matrix.matrix2[i][j]);
         }
+        printf("\n");
+    }
+    printf("RESULT\n");
+    for(int i = 0; i < matrix.row1; i++){
+        for(int j = 0; j < matrix.col2; j++){
+            printf("%0.4f ",result[i][j]);
+        }
+        printf("\n");
     }
 }
 
-void fillMatrix(int row1, int col1, int col2, int limit)
-{
-    double matrix1[row1][col1];
-    double matrix2[col1][col2];
+int main(int argc, char *argv[]){
 
-    //fill matrix 1
-    for (int rows1 = 0; rows1 < row1; rows1++)
-    {
-        for (int cols1 = 0; cols1 < col1; cols1++)
-        {
+    if(*argv[1] == 'm'){
+        struct MatrixBase matrix = GenerateMatrices(argv);
+        matrix = FillMatrices(matrix);
+        MultiplyMatrices(matrix);
 
-            matrix1[rows1][cols1] = getRandomdoubleInterval(limit);
-        }
     }
-    //fill matrix 2
-    for (int rows2=0; rows2 < col2; rows2++)
-    {
-        for (int cols2=0; cols2 < col1; cols2++)
-        {
-
-            matrix2[rows2][cols2] = getRandomdoubleInterval(limit);
-        }
-    }
-}
-int main(int argc, char *argv[])
-{
-    srand(time(0));
-    RandomDimMatrixFill(MAX_VALUE);
-    return 0;
 }
