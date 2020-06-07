@@ -5,11 +5,11 @@ struct MatrixBase
     int row1, col1;
     int row2, col2;
     int min, max;
-    float **matrix1;
-    float **matrix2;
+    double **matrix1;
+    double **matrix2;
 };
 
-float GetRandomFloatNumber(float min, float max)
+double GetRandomFloatNumber(double min, double max)
 {
-    return (min + 1) + (((float)rand()) / (float)RAND_MAX) * (max - (min + 1));
+    return (min + 1) + (((double)rand()) / (double)RAND_MAX) * (max - (min + 1));
 }
