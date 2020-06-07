@@ -35,6 +35,7 @@ struct MatrixBase FillMatrices(struct MatrixBase matrix)
         for (int j = 0; j < matrix.col1; j++)
         {
             matrix.matrix1[i][j] = GetRandomFloatNumber(matrix.min, matrix.max);
+            // printf("%0.99lf\n",matrix.matrix1[i][j]);
         }
     }
 
@@ -43,6 +44,8 @@ struct MatrixBase FillMatrices(struct MatrixBase matrix)
         for (int j = 0; j < matrix.col2; j++)
         {
             matrix.matrix2[i][j] = GetRandomFloatNumber(matrix.min, matrix.max);
+            // printf("%0.99lf\n",matrix.matrix1[i][j]);
+
         }
     }
 
@@ -51,24 +54,31 @@ struct MatrixBase FillMatrices(struct MatrixBase matrix)
 
 void MultiplyMatrices(struct MatrixBase matrix)
 {
-    float result[matrix.row1][matrix.col2];
+    double result[matrix.row1][matrix.col2];
+    double sum;
 
     for (int i = 0; i < matrix.row1; i++)
     {
         for (int j = 0; j < matrix.col2; j++)
         {
+            sum = 0;
             for (int k = 0; k < matrix.row2; k++)
             {
-                float operation = result[i][j] + (matrix.matrix1[i][k] * matrix.matrix2[k][j]);
-                if (isnan(operation))
-                {
-                    printf("value is NaN");
-                }
-                else
-                {
-                    result[i][j] = operation;
-                }
+                sum = sum + (matrix.matrix1[i][k] * matrix.matrix2[k][j]);
+                // if (isnan(operation))
+                // {
+                //     printf("Current value is NaN: \n Result -> %.4f\n",result[i][j]);
+                //     printf("Current values are: \n Row -> %.4f\n Column -> %.4f\n",matrix.matrix1[i][k], matrix.matrix2[k][j]);
+                //     printf("Previuos value is: \n Result -> %.4f\n",result[i][j]);
+                //     printf("Previuos values are: \n Row -> %.4f\n Column -> %.4f\n",matrix.matrix1[i][k-1], matrix.matrix2[k-1][j]);
+                //     printf("--------------------------------------------------\n");
+                // }
+                // else
+                // {
+                   
+                // }
             }
+            result[i][j] = sum;
         }
     }
 
@@ -96,13 +106,7 @@ void MultiplyMatrices(struct MatrixBase matrix)
     {
         for (int j = 0; j < matrix.col2; j++)
         {
-            if (isnan(result[i][j]))
-            {
-                
-                printf("%.99g \n", result[i][j]);
-                
-            }
-            //printf("%.99g \n", result[i][j]);
+            printf("%0.2f ", result[i][j]);
         }
         printf("\n");
     }
