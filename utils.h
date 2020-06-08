@@ -31,12 +31,12 @@ struct MatrixBase GenerateMatrices(char *argv[])
 {
     struct MatrixBase matrix;
 
-    matrix.row1 = atoi(argv[2]);
-    matrix.col1 = atoi(argv[3]);
-    matrix.row2 = atoi(argv[3]);
-    matrix.col2 = atoi(argv[4]);
-    matrix.min = atoi(argv[5]);
-    matrix.max = atoi(argv[6]);
+    matrix.row1 = atoi(argv[1]);
+    matrix.col1 = atoi(argv[2]);
+    matrix.row2 = atoi(argv[2]);
+    matrix.col2 = atoi(argv[3]);
+    matrix.min = atoi(argv[4]);
+    matrix.max = atoi(argv[5]);
     
     matrix.matrix1 = malloc(matrix.row1 * sizeof(double *));
     for (int i = 0; i < matrix.row1; i++)

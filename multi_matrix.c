@@ -9,9 +9,10 @@ pthread_mutex_t mutex;
 void *matrix_multiplication_runner(void *arg)
 {
     double localSum;
-    struct MatrixBase *local_struct = (struct MatrixBase*)arg;
+    struct MatrixBase *local_struct = (struct MatrixBase *)arg;
     // printf("Col1 = %d\n",global_struct.col1);
     pthread_mutex_lock(&mutex);
+
     for (int i = 0; i < local_struct->row1; i++)
     {
         for (int j = 0; j < local_struct->col2; j++)
@@ -22,6 +23,7 @@ void *matrix_multiplication_runner(void *arg)
                 localSum = localSum + (local_struct->matrix1[i][k] * local_struct->matrix2[k][j]);
             }
             local_struct->resultMatrix[i][j] = localSum;
+
             // printf("LOCAL SUM = %lf\n",localSum);
         }
     }

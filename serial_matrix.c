@@ -3,9 +3,10 @@
 #include "utils.h"
 #include <math.h>
 
+struct MatrixBase global_struct;
+
 void MultiplyMatrices(struct MatrixBase matrix)
 {
-    double result[matrix.row1][matrix.col2];
     double sum;
 
     for (int i = 0; i < matrix.row1; i++)
@@ -17,7 +18,7 @@ void MultiplyMatrices(struct MatrixBase matrix)
             {
                 sum = sum + (matrix.matrix1[i][k] * matrix.matrix2[k][j]);
             }
-            result[i][j] = sum;
+            matrix.resultMatrix[i][j] = sum;
         }
     }
 
@@ -54,10 +55,7 @@ void MultiplyMatrices(struct MatrixBase matrix)
 int main(int argc, char *argv[])
 {
 
-    if (*argv[1] == 'm')
-    {
-        struct MatrixBase matrix = GenerateMatrices(argv);
-        matrix = FillMatrices(matrix);
-        MultiplyMatrices(matrix);
-    }
+    global_struct = GenerateMatrices(argv);
+    global_struct = FillMatrices(global_struct);
+    MultiplyMatrices(global_struct);
 }
