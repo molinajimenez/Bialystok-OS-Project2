@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
         pthread_create(&tids[i], NULL, matrix_multiplication_runner, &global_struct);
     }
 
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < global_struct.leap; i++)
     {
         pthread_join(tids[i], NULL);
     }
