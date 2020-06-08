@@ -11,6 +11,7 @@ struct MatrixBase
     int min, max;
     double **matrix1;
     double **matrix2;
+    int num_threads;
     // for multi?
     int start;
     double **resultMatrix;
@@ -36,7 +37,7 @@ struct MatrixBase GenerateMatrices(char *argv[])
     matrix.col2 = atoi(argv[4]);
     matrix.min = atoi(argv[5]);
     matrix.max = atoi(argv[6]);
-
+    
     matrix.matrix1 = malloc(matrix.row1 * sizeof(double *));
     for (int i = 0; i < matrix.row1; i++)
     {
@@ -47,6 +48,12 @@ struct MatrixBase GenerateMatrices(char *argv[])
     for (int i = 0; i < matrix.row2; i++)
     {
         matrix.matrix2[i] = malloc(matrix.col2 * sizeof(double));
+    }
+
+    matrix.resultMatrix = malloc(matrix.row1 * sizeof(double *));
+    for (int i = 0; i < matrix.row1; i++)
+    {
+        matrix.resultMatrix[i] = malloc(matrix.col2 * sizeof(double));
     }
 
     return matrix;
