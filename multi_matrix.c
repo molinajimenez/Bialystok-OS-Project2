@@ -4,14 +4,15 @@
 #include "utils.h"
 #define NUMBERTHREADS 2;
 struct MatrixBase global_struct;
-pthread_mutex_t mutex;
+// pthread_mutex_t mutex;
 
 void *matrix_multiplication_runner(void *arg)
 {
     double localSum;
     struct MatrixBase *local_struct = (struct MatrixBase *)arg;
     // printf("Col1 = %d\n",global_struct.col1);
-    pthread_mutex_lock(&mutex);
+    // pthread_mutex_lock(&mutex);
+    printf("Thread: %d\n",local_struct->num_threads);
 
     for (int i = 0; i < local_struct->row1; i++)
     {
@@ -27,7 +28,7 @@ void *matrix_multiplication_runner(void *arg)
             // printf("LOCAL SUM = %lf\n",localSum);
         }
     }
-    pthread_mutex_unlock(&mutex);
+    // pthread_mutex_unlock(&mutex);
 
     pthread_exit(0);
 }
@@ -51,7 +52,7 @@ int main(int argc, char *argv[])
 
     pthread_t tids[4];
     pthread_attr_t attr;
-    pthread_mutex_init(&mutex, NULL);
+    // pthread_mutex_init(&mutex, NULL);
     for (int i = 0; i < 4; i++)
     {
         global_struct.num_threads = i;
