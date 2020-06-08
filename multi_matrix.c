@@ -38,13 +38,14 @@ int main(int argc, char *argv[])
     global_struct.leap = threads;
 
     pthread_t tids[global_struct.leap];
-
+    pthread_attr_t attr;
+    pthread_attr_init(&attr);
     pthread_mutex_init(&mutex, NULL);
     for (int i = 0; i < global_struct.leap; i++)
     {
         global_struct.num_threads = i;
 
-        pthread_create(&tids[i], NULL, matrix_multiplication_runner, &global_struct);
+        pthread_create(&tids[i], &attr, matrix_multiplication_runner, &global_struct);
     }
 
     for (int i = 0; i < global_struct.leap; i++)
