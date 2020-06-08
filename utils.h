@@ -12,8 +12,7 @@ struct MatrixBase
     double **matrix1;
     double **matrix2;
     int num_threads;
-    // for multi?
-    int start;
+    int leap;
     double **resultMatrix;
 
 };
