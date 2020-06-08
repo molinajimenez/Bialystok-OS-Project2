@@ -9,7 +9,9 @@ void *matrix_multiplication_runner(void *arg)
 {
     double localSum;
     struct MatrixBase *local_struct = (struct MatrixBase *)arg;
-    
+
+    // pthread_mutex_lock(&mutex);
+
     for (int i = 0; i < local_struct->row1; i++)
     {
         for (int j = 0; j < local_struct->col2; j++)
@@ -20,11 +22,9 @@ void *matrix_multiplication_runner(void *arg)
                 localSum = localSum + (local_struct->matrix1[i][k] * local_struct->matrix2[k][j]);
             }
             local_struct->resultMatrix[i][j] = localSum;
-
-            
         }
     }
-
+    // pthread_mutex_unlock(&mutex);
     pthread_exit(0);
 }
 
@@ -40,7 +40,8 @@ int main(int argc, char *argv[])
     for (int i = 0; i < global_struct.leap; i++)
     {
         global_struct.num_threads = i;
-
+        pthread_attr_init(&attr);
+        pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
         pthread_create(&tids[i], &attr, matrix_multiplication_runner, &global_struct);
     }
 
@@ -49,13 +50,33 @@ int main(int argc, char *argv[])
         pthread_join(tids[i], NULL);
     }
 
-    // printf("RESULT\n");
+    // printf("FIRST MATRIX\n");
     // for (int i = 0; i < global_struct.row1; i++)
     // {
-    //     for (int j = 0; j < global_struct.col2; j++)
+    //     for (int j = 0; j < global_struct.col1; j++)
     //     {
-    //         printf("%0.2f ", global_struct.resultMatrix[i][j]);
+    //         printf("%0.6f ", global_struct.matrix1[i][j]);
     //     }
     //     printf("\n");
     // }
+
+    // printf("SECOND MATRIX\n");
+    // for (int i = 0; i < global_struct.row2; i++)
+    // {
+    //     for (int j = 0; j < global_struct.col2; j++)
+    //     {
+    //         printf("%0.4f ", global_struct.matrix2[i][j]);
+    //     }
+    //     printf("\n");
+    // }
+
+    printf("RESULT\n");
+    for (int i = 0; i < global_struct.row1; i++)
+    {
+        for (int j = 0; j < global_struct.col2; j++)
+        {
+            printf("%0.2f ", global_struct.resultMatrix[i][j]);
+        }
+        printf("\n");
+    }
 }
