@@ -31,5 +31,5 @@ Compile program using terminal command:
 
 # Team members
 - Hayri Yigit
-- Ali Firat
+- Ali Firat Demirbas
 - Francisco Molina
