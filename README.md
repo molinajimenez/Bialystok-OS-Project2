@@ -10,24 +10,24 @@ Professor Daniel Reska.
 
 # Usage for serial program
 Compile program using terminal command: 
-gcc -o serial serial_matrix.c
-Run ./serial with arguments:
-Row dimension of matrix 1
-Column dimension of matrix 1
-Column dimension of matrix 2
-Minimum value that fills the matrix e.g: 2
-Maximum value that fills the matrix e.g: 5
+* gcc -o serial serial_matrix.c
+* Run ./serial with arguments:
+* Row dimension of matrix 1
+* Column dimension of matrix 1
+* Column dimension of matrix 2
+* Minimum value that fills the matrix e.g: 2
+* Maximum value that fills the matrix e.g: 5
 
 # Usage for multithreaded program
 Compile program using terminal command: 
-gcc -o multi multi_matrix.c
-Run ./multi with arguments:
-Row dimension of matrix 1
-Column dimension of matrix 1
-Column dimension of matrix 2
-Minimum value that fills the matrix e.g: 2
-Maximum value that fills the matrix e.g: 5
-Number of threads that the program is going to use
+* gcc -o multi multi_matrix.c
+* Run ./multi with arguments:
+* Row dimension of matrix 1
+* Column dimension of matrix 1
+* Column dimension of matrix 2
+* Minimum value that fills the matrix e.g: 2
+* Maximum value that fills the matrix e.g: 5
+* Number of threads that the program is going to use e.g: 4
 
 # Team members
 - Hayri Yigit
