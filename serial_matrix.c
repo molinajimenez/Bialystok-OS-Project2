@@ -22,7 +22,7 @@ void MultiplyMatrices(struct MatrixBase matrix)
         }
     }
 
-    printf("FIRST MATRIX\n");
+    /*printf("FIRST MATRIX\n");
     for (int i = 0; i < matrix.row1; i++)
     {
         for (int j = 0; j < matrix.col1; j++)
@@ -40,7 +40,12 @@ void MultiplyMatrices(struct MatrixBase matrix)
             printf("%0.4f ", matrix.matrix2[i][j]);
         }
         printf("\n");
-    }
+    }*/
+
+    printf("First matrix consists of dimensions [row, col]\n %d %d\n", matrix.row1, matrix.col1);
+    printf("Second matrix consists of dimensions [row, col]\n %d %d\n", matrix.row2, matrix.col2);
+    printf("Result matrix consists of dimensions [row, col]\n %d %d\n", matrix.row1, matrix.col2);
+
     printf("RESULT\n");
     for (int i = 0; i < matrix.row1; i++)
     {

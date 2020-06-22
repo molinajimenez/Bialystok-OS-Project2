@@ -49,6 +49,9 @@ int main(int argc, char *argv[])
     {
         pthread_join(tids[i], NULL);
     }
+    printf("First matrix consists of dimensions [row, col]\n %d %d\n", global_struct.row1, global_struct.col1);
+    printf("Second matrix consists of dimensions [row, col]\n %d %d\n", global_struct.row2, global_struct.col2);
+    printf("Result matrix consists of dimensions [row, col]\n %d %d\n", global_struct.row1, global_struct.col2);
 
     // printf("FIRST MATRIX\n");
     // for (int i = 0; i < global_struct.row1; i++)
