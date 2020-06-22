@@ -36,7 +36,6 @@ int main(int argc, char *argv[])
     global_struct.leap = threads;
     pthread_t tids[global_struct.leap];
     pthread_attr_t attr;
-    // pthread_mutex_init(&mutex, NULL);
     for (int i = 0; i < global_struct.leap; i++)
     {
         global_struct.num_threads = i;
@@ -53,25 +52,6 @@ int main(int argc, char *argv[])
     printf("Second matrix consists of dimensions [row, col]\n %d %d\n", global_struct.row2, global_struct.col2);
     printf("Result matrix consists of dimensions [row, col]\n %d %d\n", global_struct.row1, global_struct.col2);
 
-    // printf("FIRST MATRIX\n");
-    // for (int i = 0; i < global_struct.row1; i++)
-    // {
-    //     for (int j = 0; j < global_struct.col1; j++)
-    //     {
-    //         printf("%0.6f ", global_struct.matrix1[i][j]);
-    //     }
-    //     printf("\n");
-    // }
-
-    // printf("SECOND MATRIX\n");
-    // for (int i = 0; i < global_struct.row2; i++)
-    // {
-    //     for (int j = 0; j < global_struct.col2; j++)
-    //     {
-    //         printf("%0.4f ", global_struct.matrix2[i][j]);
-    //     }
-    //     printf("\n");
-    // }
 
     printf("RESULT\n");
     for (int i = 0; i < global_struct.row1; i++)
